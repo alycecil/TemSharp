@@ -113,6 +113,10 @@
       <Project>{67ceba58-22e8-4b2b-88ce-73b7733a0536}</Project>
       <Name>SharpMonoInjector</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TemSharp\TemSharp.csproj">
+      <Project>{2f633f85-985c-4e5c-9358-94371f449c3c}</Project>
+      <Name>TemSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.0.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.0.0\build\Fody.targets')" />
