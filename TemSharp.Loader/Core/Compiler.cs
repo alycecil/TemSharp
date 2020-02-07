@@ -15,26 +15,26 @@ namespace TemSharp.Loader.Core
         public static String UnityDllPath = "";
         public static Boolean UpdateSources()
         {
-            if (Directory.Exists($@"..\..\..\..\{ProjName}"))
-                return false;
+            // if (Directory.Exists($@"..\..\..\..\{ProjName}"))
+            //     return false;
             Console.WriteLine("Getting latest version info from Github");
             System.Net.WebClient wc = new System.Net.WebClient();
-            String hash = wc.DownloadString($"https://github.com/shalzuth/{ProjName}/tree/master/{ProjName}");
-            String hashSearch = $"src=\"/shalzuth/{ProjName}/tree-commit/";
+            String hash = wc.DownloadString($"https://github.com/alycecil/{ProjName}/tree/working/{ProjName}");
+            String hashSearch = $"src=\"/alycecil/{ProjName}/tree-commit/";
             hash = hash.Substring(hash.IndexOf(hashSearch) + hashSearch.Length, 7);
-            String hashFile = $@".\{ProjName}-master\hash.txt";
+            String hashFile = $@".\{ProjName}-working\hash.txt";
             if (File.Exists(hashFile))
             {
                 if (hash != File.ReadAllText(hashFile))
                 {
                     Console.WriteLine("Later version exists, removing existing version");
-                    Directory.Delete($@".\{ProjName}-master", true);
+                    Directory.Delete($@".\{ProjName}-working", true);
                 }
             }
             if (!File.Exists(hashFile))
             {
                 Console.WriteLine("Downloading latest version");
-                wc.DownloadFile($"https://github.com/shalzuth/{ProjName}/archive/master.zip", $"{ProjName}.zip");
+                wc.DownloadFile($"https://github.com/alycecil/{ProjName}/archive/working.zip", $"{ProjName}.zip");
                 using (var archive = ZipFile.OpenRead($"{ProjName}.zip"))
                 {
                     archive.ExtractToDirectory(@".\");
@@ -84,7 +84,7 @@ namespace TemSharp.Loader.Core
             if (Directory.Exists($@"..\..\..\..\{ProjName}"))
                 sourceFiles = Directory.GetFiles($@"..\..\..\..\{ProjName}", "*.cs", SearchOption.AllDirectories);
             else
-                sourceFiles = Directory.GetFiles($@"{ProjName}-master\{ProjName}\", "*.cs", SearchOption.AllDirectories);
+                sourceFiles = Directory.GetFiles($@"{ProjName}-working\{ProjName}\", "*.cs", SearchOption.AllDirectories);
             var sources = new List<String>();
             foreach (var sourceFile in sourceFiles)
             {
